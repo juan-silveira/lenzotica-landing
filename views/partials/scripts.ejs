@@ -1,0 +1,257 @@
+<!-- ============================================ -->
+<!-- SCRIPTS                                       -->
+<!-- ============================================ -->
+
+<!-- Scroll Animations -->
+<script src="/public/js/scroll-animations.js"></script>
+
+<script>
+    // ============================================
+    // MOBILE MENU
+    // ============================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Fechar menu ao clicar em um link
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    // ============================================
+    // NAVBAR SCROLL EFFECT
+    // ============================================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('shadow-lg');
+        } else {
+            navbar.classList.remove('shadow-lg');
+        }
+    });
+
+    // ============================================
+    // SMOOTH SCROLL
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '') return;
+
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                const offset = 80;
+                const targetPosition = target.offsetTop - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // ============================================
+    // PHONE MASK
+    // ============================================
+    const telefoneInput = document.getElementById('telefone');
+    if (telefoneInput) {
+        telefoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                if (value.length <= 10) {
+                    value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+                } else {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+                }
+            }
+            e.target.value = value;
+        });
+    }
+
+    // ============================================
+    // CONTACT FORM - WHATSAPP INTEGRATION
+    // ============================================
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const empresa = document.getElementById('empresa').value;
+            const telefone = document.getElementById('telefone').value;
+            const email = document.getElementById('email').value;
+            const interesse = document.getElementById('interesse').value;
+            const mensagem = document.getElementById('mensagem').value;
+
+            const numeroWhatsApp = '<%= data.whatsapp %>';
+
+            let textoWhatsApp = `*🔵 Nova Solicitação - <%= data.empresa %>*\n\n`;
+            textoWhatsApp += `*Nome:* ${nome}\n`;
+
+            if (empresa) {
+                textoWhatsApp += `*Empresa:* ${empresa}\n`;
+            }
+
+            textoWhatsApp += `*Telefone:* ${telefone}\n`;
+
+            if (email) {
+                textoWhatsApp += `*E-mail:* ${email}\n`;
+            }
+
+            textoWhatsApp += `*Interesse:* ${interesse}\n`;
+            textoWhatsApp += `*Mensagem:* ${mensagem}\n`;
+
+            const mensagemCodificada = encodeURIComponent(textoWhatsApp);
+            const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+
+            window.open(linkWhatsApp, '_blank');
+
+            contactForm.reset();
+        });
+    }
+
+    // ============================================
+    // SCROLL ANIMATIONS
+    // ============================================
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in-up');
+                entry.target.style.opacity = '1';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        imageObserver.observe(el);
+    });
+
+    // ============================================
+    // CAROUSEL
+    // ============================================
+    const carouselTrack = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+
+    let currentSlide = 0;
+    const totalSlides = 8;
+    let autoplayInterval;
+
+    function updateCarousel() {
+        const offset = -currentSlide * 100;
+        carouselTrack.style.transform = `translateX(${offset}%)`;
+
+        // Atualizar indicadores
+        indicators.forEach((indicator, index) => {
+            if (index === currentSlide) {
+                indicator.classList.remove('bg-gray-300');
+                indicator.classList.add('bg-primary');
+            } else {
+                indicator.classList.remove('bg-primary');
+                indicator.classList.add('bg-gray-300');
+            }
+        });
+
+        // Reiniciar animação do zoom-out
+        const allSlides = carouselTrack.querySelectorAll('.carousel-slide');
+        allSlides.forEach((slide, index) => {
+            const img = slide.querySelector('img');
+            if (index === currentSlide) {
+                img.style.animation = 'none';
+                setTimeout(() => {
+                    img.style.animation = '';
+                }, 10);
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        updateCarousel();
+    }
+
+    function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoplay() {
+        clearInterval(autoplayInterval);
+    }
+
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoplay();
+        startAutoplay();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoplay();
+        startAutoplay();
+    });
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+            stopAutoplay();
+            startAutoplay();
+        });
+    });
+
+    // Pausar autoplay ao passar o mouse
+    const carouselContainer = carouselTrack.parentElement.parentElement;
+    carouselContainer.addEventListener('mouseenter', stopAutoplay);
+    carouselContainer.addEventListener('mouseleave', startAutoplay);
+
+    // Suporte a swipe em dispositivos móveis
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carouselTrack.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    carouselTrack.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            stopAutoplay();
+            startAutoplay();
+        }
+        if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            stopAutoplay();
+            startAutoplay();
+        }
+    }
+
+    // Iniciar autoplay
+    startAutoplay();
+</script>

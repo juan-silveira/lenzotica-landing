@@ -1,0 +1,29 @@
+<!-- ============================================ -->
+<!-- SOBRE - Informações sobre a empresa          -->
+<!-- ============================================ -->
+<section id="sobre" class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16 scroll-animate fade-up">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Sobre Nós</h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
+                Com mais de 15 anos de experiência, somos referência em óculos de proteção e equipamentos de segurança.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 stagger-children">
+            <% data.sobre.forEach(item => { %>
+                <div class="text-center p-6 bg-gray-50 rounded-xl hover-lift">
+                    <% if (item.imagem) { %>
+                        <div class="mb-6">
+                            <img src="/<%= item.imagem %>" alt="<%= item.titulo %>" class="w-full h-48 object-cover rounded-lg">
+                        </div>
+                    <% } else { %>
+                        <div class="text-5xl mb-6"><%= item.icone %></div>
+                    <% } %>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4"><%= item.titulo %></h3>
+                    <p class="text-gray-600"><%= item.descricao %></p>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
