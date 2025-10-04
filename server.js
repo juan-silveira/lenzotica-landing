@@ -13,7 +13,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Dados da aplicação
 const siteData = {
-  empresa: 'Lenzótica + Izamar',
+  empresa: 'Lenzótica',
   telefone: '(48) 98818-7231',
   whatsapp: '5548988187231',
   endereco: 'Rua Vereador Arthur Manoel Mariano, 362, Sala 02, Forquilhinhas, São José - SC',
@@ -22,10 +22,10 @@ const siteData = {
   facebook: 'https://www.facebook.com/share/15Zp5rL5AT/',
 
   stats: [
-    { numero: '15+', label: 'Anos de Experiência' },
-    { numero: '50+', label: 'Empresas Atendidas' },
-    { numero: '10.000+', label: 'Clientes Satisfeitos' },
-    { numero: '100%', label: 'Qualidade Garantida' }
+    { numero: '100k+', label: 'Óculos Vendidos' },
+    { numero: '500+', label: 'Empresas Atendidas' },
+    { numero: '8+', label: 'Grandes Clientes' },
+    { numero: 'SC', label: 'Nova Expansão' }
   ],
 
   produtos: [
@@ -72,18 +72,17 @@ const siteData = {
   ],
 
   clientes: [
-    { nome: 'WEG', logo: 'public/images/clients/weg.png', url: 'https://www.weg.net' },
-    { nome: 'Tupy', logo: 'public/images/clients/tupy.png', url: 'https://www.tupy.com.br' },
-    { nome: 'Embraco', logo: 'public/images/clients/embraco.png', url: 'https://www.embraco.com' },
-    { nome: 'Whirlpool', logo: 'public/images/clients/whirlpool.png', url: 'https://www.whirlpool.com.br' },
-    { nome: 'Tigre', logo: 'public/images/clients/tigre.png', url: 'https://www.tigre.com.br' },
-    { nome: 'Hering', logo: 'public/images/clients/hering.png', url: 'https://www.hering.com.br' },
-    { nome: 'Gerdau', logo: 'public/images/clients/gerdau.png', url: 'https://www.gerdau.com.br' },
-    { nome: 'Havai Brasil', logo: 'public/images/clients/havaibrasil.png', url: 'https://www.havaibrasil.com.br' },
-    { nome: 'Vonpar', logo: 'public/images/clients/vonpar.png', url: 'https://www.vonpar.com.br' },
-    { nome: 'Celesc', logo: 'public/images/clients/celesc.png', url: 'https://www.celesc.com.br' },
-    { nome: 'Eletrosul', logo: 'public/images/clients/eletrosul.png', url: 'https://www.eletrosul.gov.br' },
-    { nome: 'SC Gás', logo: 'public/images/clients/scgas.png', url: 'https://www.scgas.com.br' }
+    { nome: 'Usiminas', logo: '', url: 'https://www.usiminas.com.br' },
+    { nome: 'GE', logo: '', url: 'https://www.ge.com' },
+    { nome: 'Alstom', logo: '', url: 'https://www.alstom.com' },
+    { nome: 'ArcelorMittal', logo: '', url: 'https://www.arcelormittal.com' },
+    { nome: 'Goodyear', logo: '', url: 'https://www.goodyear.com' },
+    { nome: 'ZF do Brasil', logo: '', url: 'https://www.zf.com.br' },
+    // { nome: 'Liceu', logo: 'public/images/clients/liceu.png', url: 'https://www.liceu.com.br' },
+    { nome: 'Univar', logo: '', url: 'https://www.univar.com' },
+    { nome: 'Thyssenkrupp', logo: '', url: 'https://www.thyssenkrupp.com' },
+    { nome: 'Anauger', logo: '', url: 'https://www.anauger.com' },
+    { nome: 'Recicle', logo: '', url: '' }
   ],
 
   sobre: [

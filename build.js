@@ -13,10 +13,10 @@ const siteData = {
   facebook: 'https://www.facebook.com/share/15Zp5rL5AT/',
 
   stats: [
-    { numero: '15+', label: 'Anos de Experiência' },
-    { numero: '50+', label: 'Empresas Atendidas' },
-    { numero: '10.000+', label: 'Clientes Satisfeitos' },
-    { numero: '100%', label: 'Qualidade Garantida' }
+    { numero: '100k+', label: 'Óculos Vendidos' },
+    { numero: '500+', label: 'Empresas Atendidas' },
+    { numero: '8+', label: 'Grandes Clientes' },
+    { numero: 'SC', label: 'Nova Expansão' }
   ],
 
   produtos: [
